@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>User Profile</title>
+	
+
+</head>
+
+<body>
+
+
+	<section class="text-center">
+
+		<div class="container mt-4">
+  <h2 class="mb-4">Select Category of Quiz</h2>
+  <div class="row">
+    <!-- First Card -->
+    <th:block th:each="category: ${categoriesList}">
+    <div class="col-md-6 col-sm-6 mb-4 ">
+      <div class="card categoryofquiz">
+        <div class="card-body">
+          <h5 th:text="${category}" class="card-title"></h5>
+          <p class="card-text">Start [[${category}]] Quiz Now!</p>
+          <a th:href="@{'/user/startQuiz/'+${category}}" class="btn btn-success">Start</a>
+        </div>
+      </div>
+    </div>
+     </th:block>
+    </div>
+   
+    
+   
+	</section>
+
+</body>
+
+</html>

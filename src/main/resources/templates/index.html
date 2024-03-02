@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<section>
+		
+		<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Intro Section -->
+        <div class="intro-section">
+          <h1>Welcome to Our Quiz Application</h1>
+          <p>Test your knowledge and have fun!</p>
+          <a href="/sigin" class="btn btn-lg btn-light quiz-link border-dark m-2">Register Now!</a>
+          <p>Already a user? <a href="/signin">Login</a></p>
+        </div>
+        <!-- Quiz Section -->
+        <div id="quiz" class="quiz-section mt-5">
+          <!-- Quiz content will go here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+	</section>
+
+</body>
+</html>

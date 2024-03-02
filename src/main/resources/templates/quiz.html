@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Quiz Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Set a minimum height for the content to make sure it's scrollable */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #E8E8E8;
+    }
+
+    #content {
+      flex: 1;
+    }
+    
+    .footer{
+		 background-color: #28a745; /* Green background color */
+      color: #fff; 
+	}
+  </style>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #198754;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Quizzy</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+					<th:block th:if="${user==NULL}">
+					<li class="nav-item"><a class="nav-link" href="register">Register</a></li>
+					<li class="nav-item"><a class="nav-link" href="signin">Login</a></li>
+					</th:block>
+
+				</ul>
+				<th:block th:if="${user}">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="/logout">Logout</a>
+						</li>
+					</ul>
+				</th:block>
+			</div>
+		</div>
+	</nav>
+
+	<!-- End Navbar -->
+	
+
+  <!-- Content -->
+  <th:block th:each="question: ${questionsForUser} ">
+  <div id="content" class="container mt-5 pt-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text" th:text="'Q'+${questionStat.index+1}+'.)'+${question.questionTitle}"></p>
+            
+				<form th:action="@{'/submitQuiz'+${selectedOption}}" method="post">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:name="answer+${questionStat.index+1}" th:namth:checked="${selectedOption == question.option1}"  id="answer1" value="${question.option1}">
+                <label class="form-check-label" for="answer1" th:text="${question.option1}">
+                </label>
+              </div>
+              
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:checked="${selectedOption == question.option2}"  id="answer2" value="${question.option2}">
+                <label class="form-check-label" for="answer2" th:text="${question.option2}">
+                </label>
+              </div>
+              
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:checked="${selectedOption == question.option3}" id="answer3" value="${question.option3}">
+                <label class="form-check-label" for="answer3" th:text="${question.option3}">
+                </label>
+              </div>
+              
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:checked="${selectedOption == question.option4}" id="answer4" value="${question.option4}">
+                <label class="form-check-label" for="answer4" th:text="${question.option4}">
+                </label>
+              </div>
+              <!-- Other answer options -->
+            
+            <!-- Difficulty Level Label -->
+            <span th:if="${question.difficultyLevel == 'Medium'}" class="badge badge-info">Difficulty: <span th:text="${question.difficultyLevel}"></span></span>
+            <span th:if="${question.difficultyLevel == 'Easy'}" class="badge badge-success">Difficulty: <span th:text="${question.difficultyLevel}"></span></span>
+            <span th:if="${question.difficultyLevel == 'Hard'}" class="badge badge-warning">Difficulty: <span th:text="${question.difficultyLevel}"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </th:block>
+
+  
+  <!-- Submit Button -->
+  <div class="container mt-auto mb-3">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </div>
+    </div>
+  </div>
+  
+  </form>
+  
+
+  <!-- Footer -->
+  <footer class="footer py-3">
+		<div class="container text-center">
+			<p>Designed by Monish Giri | All rights reserved.</p>
+		</div>
+	</footer>
+
+  <!-- Bootstrap JS and jQuery (optional) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
